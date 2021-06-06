@@ -10,7 +10,7 @@ class Group(models.Model):
         ('RW', 'Read and Write'),
         ('FA', 'Full Access'),
     )
-    access_level = models.CharField(max_length=50, choices=CHOICES)
+    access_level = models.CharField(max_length=60, choices=CHOICES)
 
     # def __str__(self):
     #     return self.username
