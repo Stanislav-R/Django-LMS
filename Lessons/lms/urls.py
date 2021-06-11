@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path
 
 from groups.views import get_groups
-from students.views import hello, get_students
+from students.views import hello, get_students, create_student
 from teachers.views import get_teachers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', hello),
-    path('get_students/', get_students),
+    path('students/', get_students),
+    path('students/create/', create_student),
     path('get_teachers/', get_teachers),
     path('get_groups/', get_groups),
 ]

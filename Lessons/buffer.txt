@@ -1,0 +1,17 @@
+pip install flake8 flake8-builtins flake8-import-order pep8-naming
+
+
+   <form action="/action_page.php" method="get">
+
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname"><br><br>
+
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname"><br><br>
+
+    <label>Age:</label>
+    <input type="number" name="age"><br><br>
+
+    <input type="submit" value="Submit">
+
+   </form>
