@@ -13,20 +13,25 @@ Including another URConf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+import debug_toolbar
 
-from groups.views import get_groups
+from django.contrib import admin
+from django.urls import include, path
+
+from groups.views import create_group, get_groups
 
 from students.views import create_student, get_students, hello
 
-from teachers.views import get_teachers
+from teachers.views import create_teacher, get_teachers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', hello),
     path('students/', get_students),
     path('students/create/', create_student),
-    path('get_teachers/', get_teachers),
-    path('get_groups/', get_groups),
+    path('teachers/', get_teachers),
+    path('teachers/create/', create_teacher),
+    path('groups/', get_groups),
+    path('groups/create/', create_group),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
