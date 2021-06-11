@@ -1,13 +1,17 @@
 from django.http import HttpResponse
 
-# Create your views here.
+from students.utils import format_records
+
+from teachers.models import Teacher
+
 from webargs import fields
 from webargs.djangoparser import use_args
 
-from students.utils import format_records
-from teachers.models import Teacher
+
+# Create your views here.
 
 
+# HW 8-2
 @use_args({
     "first_name": fields.Str(
         required=False

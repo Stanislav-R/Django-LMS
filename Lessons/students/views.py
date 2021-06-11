@@ -1,10 +1,13 @@
-from django.shortcuts import render  # noqa
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render  # noqa
 from django.views.decorators.csrf import csrf_exempt
 
 from students.forms import StudentCreateForm
 from students.models import Student
 from students.utils import format_records
+
+from webargs import fields
+from webargs.djangoparser import use_args
 
 
 def hello(request):
@@ -23,10 +26,6 @@ def hello(request):
 # )
 # def generate_students(request, count):
 #     return HttpResponse('Hello')
-
-from webargs.djangoparser import use_kwargs, use_args
-from webargs import fields
-
 
 @use_args({
     "first_name": fields.Str(

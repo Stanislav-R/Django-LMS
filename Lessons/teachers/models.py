@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# HW 7-3
 # Create your models here.
 class Teacher(models.Model):
     first_name = models.CharField(max_length=30, null=False)

@@ -1,8 +1,11 @@
 import random
+
 from django.db import models
+
 from faker import Faker
 
 
+# HW 7-2
 # Create your models here.
 
 class Group(models.Model):
@@ -21,7 +24,7 @@ class Group(models.Model):
     def __str__(self):
         return f'{self.username}, {self.access_level}'
 
-    @staticmethod
+    @staticmethod  # HW 8-1
     def generate_groups(count):
         faker = Faker()
         for _ in range(count):

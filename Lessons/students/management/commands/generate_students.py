@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
-from faker import Faker
 
 from students.models import Student
 
 
+# HW 8-3
 class Command(BaseCommand):
     help = 'Generating table of students.'
 
