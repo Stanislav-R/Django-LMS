@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render  # noqa
 from django.views.decorators.csrf import csrf_exempt
 
-from students.forms import StudentCreateForm
+from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
 from students.utils import format_records
 
@@ -27,17 +27,18 @@ def hello(request):
 # def generate_students(request, count):
 #     return HttpResponse('Hello')
 
-@use_args({
-    "first_name": fields.Str(
-        required=False
-    ),
-    "last_name": fields.Str(
-        required=False
-    ),
-    "birthdate": fields.Date(
-        required=False
-    )},
-    location="query"
+
+@use_args(
+    {
+        "first_name": fields.Str(
+            required=False
+        ),
+        "last_name": fields.Str(
+            required=False
+        ),
+        "birthdate": fields.Date(required=False),
+    },
+    location="query",
 )
 def get_students(request, args):
     # Students = 42
@@ -58,7 +59,7 @@ def get_students(request, args):
         <label>Age:</label>
         <input type="number" name="age"><br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Search">
        </form>
     """
 
@@ -85,7 +86,35 @@ def create_student(request):
     html_form = f"""
     <form method="post">
       {form.as_p()}
-      <input type="submit" value="Submit">
+      <input type="submit" value="Create">
+    </form>
+    """
+
+    response = html_form
+
+    return HttpResponse(response)
+
+
+@csrf_exempt
+def update_student(request, id):
+    student = Student.objects.get(id=id)
+
+    if request.method == 'GET':
+
+        form = StudentUpdateForm(instance=student)
+
+    elif request.method == 'POST':
+
+        form = StudentUpdateForm(instance=student, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/students/')
+
+    html_form = f"""
+    <form method="post">
+      {form.as_p()}
+      <input type="submit" value="Save">
     </form>
     """
 
