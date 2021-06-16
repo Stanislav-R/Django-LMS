@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.db import models
@@ -17,9 +18,8 @@ class Group(models.Model):
         ('FA', 'Full Access'),
     )
     access_level = models.CharField(max_length=60, choices=CHOICES)
-
-    # def __str__(self):
-    #     return self.username
+    enroll_date = models.DateField(default=datetime.date.today)
+    graduate_date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return f'{self.username}, {self.access_level}'

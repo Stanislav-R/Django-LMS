@@ -1,3 +1,5 @@
+import re
+
 from django.core.exceptions import ValidationError
 from django.forms import DateInput, ModelForm
 
@@ -10,6 +12,8 @@ class StudentBaseForm(ModelForm):
         fields = [
             'first_name',
             'last_name',
+            'phone_number',
+            'email',
             'age',
             'birthdate',
             'enroll_date',
@@ -21,6 +25,10 @@ class StudentBaseForm(ModelForm):
     @staticmethod
     def normalize_name(value):
         return value.lower().capitalize()
+
+    @staticmethod
+    def normalize_phone_number(value):
+        return '+' + re.sub("\D", "", value)
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
@@ -46,6 +54,17 @@ class StudentBaseForm(ModelForm):
         if enroll_date > graduate_date:
             raise ValidationError('Enroll date coudnt be greater than graduate date!')
 
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        result = self.normalize_phone_number(phone_number)
+        return result
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and Student.objects.filter(email=email).exists():
+            raise ValidationError('Sorry, the email already in use')
+        return email
+
 
 class StudentCreateForm(StudentBaseForm):
     pass
@@ -56,6 +75,8 @@ class StudentUpdateForm(StudentBaseForm):
         fields = [
             'first_name',
             'last_name',
+            'phone_number',
+            'email',
             # 'age',
             'birthdate',
             'enroll_date',

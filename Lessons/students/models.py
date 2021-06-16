@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 from faker import Faker
 
-from students.validators import adult_validator
+from students.validators import adult_validator, validate_domain_email
 
 
 class Student(models.Model):
@@ -14,8 +14,11 @@ class Student(models.Model):
     last_name = models.CharField(
         max_length=80, null=False, validators=[MinLengthValidator(2)]
     )
+    phone_number = models.CharField(max_length=15, null=True)
     age = models.IntegerField(default=42)
-    email = models.EmailField(max_length=120, null=True)
+    email = models.EmailField(
+        max_length=50, null=True, validators=[validate_domain_email]
+    )
     birthdate = models.DateField(
         default=datetime.date.today, validators=[adult_validator]
     )
