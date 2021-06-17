@@ -14,11 +14,12 @@ def adult_validator(birthdate):
 
 # HW 9-4 with '*'
 def validate_domain_email(email):
-    domain_white_list = [
+    DOMAIN_WHITE_LIST = [
         'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'ukr.net', 'i.ua'
     ]
-    count = len(domain_white_list)
-    for domain in domain_white_list:
+    # if sum(1 for domain in DOMAIN_WHITE_LIST if domain not in email) > 0:
+    count = len(DOMAIN_WHITE_LIST)
+    for domain in DOMAIN_WHITE_LIST:
         if domain not in email:
             count -= 1
     if count <= 0:
