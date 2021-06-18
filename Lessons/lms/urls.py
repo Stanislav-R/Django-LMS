@@ -18,6 +18,7 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
 
+from core.views import index
 from groups.views import create_group, get_groups, update_group
 
 from students.views import create_student, get_students, hello, update_student
@@ -27,9 +28,14 @@ from teachers.views import create_teacher, get_teachers, update_teacher
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', hello),
-    path('students/', get_students),
-    path('students/create/', create_student),
-    path('students/update/<int:id>', update_student),
+
+    path('', index, name='index'),
+
+    # path('students/', get_students),
+    # path('students/create/', create_student),
+    # path('students/update/<int:id>', update_student),
+
+    path('students/', include('students.urls')),
     path('teachers/', get_teachers),
     path('teachers/create/', create_teacher),
     path('teachers/update/<int:id>', update_teacher),
