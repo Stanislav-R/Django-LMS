@@ -26,7 +26,7 @@ class TeacherBaseForm(ModelForm):
 
     @staticmethod
     def normalize_phone_number(value):
-        return '+' + re.sub("\D", "", value)
+        return '+' + re.sub("\D", "", value)  # noqa
         # return '+' + ''.join(i for i in value if i.isdigit())
 
     def clean_first_name(self):

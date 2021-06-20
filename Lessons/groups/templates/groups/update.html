@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Update student</title>
+    <title>Update group</title>
 {% endblock %}
 
-{%block content%}
+{% block content %}
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block action %}
-    <h3>Update student</h3>
+    <h3>Update group</h3>
 {% endblock action %}

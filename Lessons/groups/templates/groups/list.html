@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Groups list</title>
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        <label >Username:</label>
+        <input type="text" name="username"><br><br>
+
+        <label >Access level:</label>
+        <input type="text" name="access_level"><br><br>
+
+        <input type="submit" value="Search">
+    </form>
+
+    {% for group in groups %}
+
+        <a href="{% url 'groups:update' group.id %}">EDIT</a>  {{group}}<br>
+
+    {% endfor %}
+
+{% endblock %}
+
+{% block action %}
+    <h3>List of groups</h3>
+{% endblock action %}
