@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Delete student</title>
+    <title>Delete group</title>
 {% endblock %}
 
 {% block action %}
-    <h3>Delete student</h3>
+    <h3>Delete group</h3>
 {% endblock action %}
 
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        <p>Do you really want to remove {{ student.first_name }} {{ student.last_name }} ?</p>
+        <p>Do you really want to remove {{ group.access_level }} ?</p>
         <input class="btn btn-danger" type="submit" value="Agree">
-        <a class="btn btn-primary" href="{% url 'students:list' %}">Cancel</a>
+        <a class="btn btn-primary" href="{% url 'groups:list' %}">Cancel</a>
     </form>
 {% endblock %}
