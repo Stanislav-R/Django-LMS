@@ -1,9 +1,9 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm
 from teachers.models import Teacher
-from teachers.utils import format_records
 
 from webargs import fields
 from webargs.djangoparser import use_args
@@ -34,12 +34,15 @@ def get_teachers(request, args):
     for param_name, param_value in args.items():
         teachers = teachers.filter(**{param_name: param_value})
 
-    records = format_records(teachers)
+    return render(
+        request=request,
+        template_name='teachers/list.html',
+        context={
+            'teachers': teachers
+        }
+    )
 
-    return HttpResponse(records)
 
-
-@csrf_exempt
 def create_teacher(request):
     if request.method == 'GET':
 
@@ -51,22 +54,18 @@ def create_teacher(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('teachers:list'))
 
-    html_form = f"""
-    <form method="post">
-      {form.as_p()}
-      <input type="submit" value="Create">
-    </form>
-    """
-
-    response = html_form
-
-    return HttpResponse(response)
+    return render(
+        request=request,
+        template_name='teachers/create.html',
+        context={
+            'form': form
+        }
+    )
 
 
-@csrf_exempt
-def update_teacher(request, id):
+def update_teacher(request, id): # noqa
     teacher = Teacher.objects.get(id=id)
 
     if request.method == 'GET':
@@ -79,15 +78,12 @@ def update_teacher(request, id):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers/')
+            return HttpResponseRedirect(reverse('teachers:list'))
 
-    html_form = f"""
-    <form method="post">
-      {form.as_p()}
-      <input type="submit" value="Save">
-    </form>
-    """
-
-    response = html_form
-
-    return HttpResponse(response)
+    return render(
+        request=request,
+        template_name='teachers/update.html',
+        context={
+            'form': form
+        }
+    )

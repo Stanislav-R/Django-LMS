@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 
 
-def adult_validator(birthdate, adult_age_limit = 18):
+def adult_validator(birthdate, adult_age_limit=18):
 
     age = datetime.datetime.now().year - birthdate.year
 
@@ -22,7 +22,7 @@ class AdultValidator:
 
 # HW 9-4 with '*'
 def validate_domain_email(email):
-    DOMAIN_WHITE_LIST = [
+    DOMAIN_WHITE_LIST = [  # noqa
         'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'ukr.net', 'i.ua'
     ]
     # if sum(1 for domain in domain_white_list if domain not in email) > 0:

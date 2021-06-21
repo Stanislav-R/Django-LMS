@@ -13,17 +13,14 @@ Including another URConf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from core.views import index
+
 import debug_toolbar
 
 from django.contrib import admin
 from django.urls import include, path
 
-from core.views import index
-from groups.views import create_group, get_groups, update_group
-
-from students.views import create_student, get_students, hello, update_student
-
-from teachers.views import create_teacher, get_teachers, update_teacher
+from students.views import hello
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,13 +31,15 @@ urlpatterns = [
     # path('students/', get_students),
     # path('students/create/', create_student),
     # path('students/update/<int:id>', update_student),
+    # path('groups/', get_groups),
+    # path('groups/create/', create_group),
+    # path('groups/update/<int:id>', update_group),
+    # path('teachers/', get_teachers),
+    # path('teachers/create/', create_teacher),
+    # path('teachers/update/<int:id>', update_teacher),
 
     path('students/', include('students.urls')),
-    path('teachers/', get_teachers),
-    path('teachers/create/', create_teacher),
-    path('teachers/update/<int:id>', update_teacher),
-    path('groups/', get_groups),
-    path('groups/create/', create_group),
-    path('groups/update/<int:id>', update_group),
+    path('groups/', include('groups.urls')),
+    path('teachers/', include('teachers.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]

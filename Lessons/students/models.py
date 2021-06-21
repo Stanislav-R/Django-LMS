@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 from faker import Faker
 
-from students.validators import adult_validator, validate_domain_email, AdultValidator
+from students.validators import AdultValidator, validate_domain_email
 
 
 class Student(models.Model):

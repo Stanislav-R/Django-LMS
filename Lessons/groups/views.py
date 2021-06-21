@@ -1,9 +1,9 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
 from groups.forms import GroupCreateForm, GroupUpdateForm
 from groups.models import Group
-from groups.utils import format_records
 
 from webargs import fields
 from webargs.djangoparser import use_args
@@ -24,12 +24,15 @@ def get_groups(request, args):
     for param_name, param_value in args.items():
         groups = groups.filter(**{param_name: param_value})
 
-    records = format_records(groups)
+    return render(
+        request=request,
+        template_name='groups/list.html',
+        context={
+            'groups': groups
+        }
+    )
 
-    return HttpResponse(records)
 
-
-@csrf_exempt
 def create_group(request):
     if request.method == 'GET':
 
@@ -41,22 +44,18 @@ def create_group(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/groups/')
+            return HttpResponseRedirect(reverse('groups:list'))
 
-    html_form = f"""
-    <form method="post">
-      {form.as_p()}
-      <input type="submit" value="Create">
-    </form>
-    """
-
-    response = html_form
-
-    return HttpResponse(response)
+    return render(
+        request=request,
+        template_name='groups/create.html',
+        context={
+            'form': form
+        }
+    )
 
 
-@csrf_exempt
-def update_group(request, id):
+def update_group(request, id): # noqa
     group = Group.objects.get(id=id)
 
     if request.method == 'GET':
@@ -69,15 +68,12 @@ def update_group(request, id):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/groups/')
+            return HttpResponseRedirect(reverse('groups:list'))
 
-    html_form = f"""
-    <form method="post">
-      {form.as_p()}
-      <input type="submit" value="Save">
-    </form>
-    """
-
-    response = html_form
-
-    return HttpResponse(response)
+    return render(
+        request=request,
+        template_name='groups/update.html',
+        context={
+            'form': form
+        }
+    )
