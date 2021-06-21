@@ -4,6 +4,10 @@
     <title>Update student</title>
 {% endblock %}
 
+{% block action %}
+    <h3>Update student</h3>
+{% endblock action %}
+
 {%block content%}
     <form method="post">
         {% csrf_token %}
@@ -11,7 +15,3 @@
         <input type="submit" value="Update">
     </form>
 {% endblock %}
-
-{% block action %}
-    <h3>Update student</h3>
-{% endblock action %}

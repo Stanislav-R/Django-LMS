@@ -4,6 +4,10 @@
 <title>Teachers list</title>
 {% endblock %}
 
+{% block action %}
+    <h3>List of teachers</h3>
+{% endblock action %}
+
 {% block content %}
     <form method="get">
         <label >First name:</label>
@@ -28,7 +32,3 @@
     {% endfor %}
 
 {% endblock %}
-
-{% block action %}
-    <h3>List of teachers</h3>
-{% endblock action %}

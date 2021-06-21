@@ -4,6 +4,10 @@
 <title>Groups list</title>
 {% endblock %}
 
+{% block action %}
+    <h3>List of groups</h3>
+{% endblock action %}
+
 {% block content %}
     <form method="get">
         <label >Username:</label>
@@ -22,7 +26,3 @@
     {% endfor %}
 
 {% endblock %}
-
-{% block action %}
-    <h3>List of groups</h3>
-{% endblock action %}

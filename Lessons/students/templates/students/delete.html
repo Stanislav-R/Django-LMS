@@ -4,6 +4,10 @@
     <title>Delete student</title>
 {% endblock %}
 
+{% block action %}
+    <h3>Delete student</h3>
+{% endblock action %}
+
 {% block content %}
     <form method="post">
         {% csrf_token %}

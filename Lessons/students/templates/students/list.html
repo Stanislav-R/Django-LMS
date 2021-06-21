@@ -4,6 +4,10 @@
 <title>Students list</title>
 {% endblock %}
 
+{% block action %}
+    <h3>List of students</h3>
+{% endblock action %}
+
 {% block content %}
     <form method="get">
         <label >First name:</label>
@@ -44,7 +48,3 @@
     </table>
 
 {% endblock %}
-
-{% block action %}
-    <h3>List of students</h3>
-{% endblock action %}
