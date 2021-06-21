@@ -25,10 +25,29 @@
         <input type="submit" value="Search">
     </form>
 
-    {% for teacher in teachers %}
+    <p><strong>Count of teachers: {{ teachers.count }}</strong></p>
 
-        <a href="{% url 'teachers:update' teacher.id %}">EDIT</a>  {{teacher}}<br>
-
-    {% endfor %}
+    <table class="table table-hover table-sm">
+        <tr>
+            <th>№</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Work experience</th>
+            <th>🖉</th>
+            <th>🚮</th>
+        </tr>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ teacher.first_name }}</td>
+            <td>{{ teacher.last_name }}</td>
+            <td>{{ teacher.position }}</td>
+            <td>{{ teacher.work_experience }}</td>
+            <td><a href="{% url 'teachers:update' teacher.id %}">EDIT</a></td>
+            <td><a href="{% url 'teachers:delete' teacher.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
