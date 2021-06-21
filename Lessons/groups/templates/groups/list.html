@@ -19,10 +19,25 @@
         <input type="submit" value="Search">
     </form>
 
-    {% for group in groups %}
+    <p><strong>Count of groups: {{ groups.count }}</strong></p>
 
-        <a href="{% url 'groups:update' group.id %}">EDIT</a>  {{group}}<br>
-
-    {% endfor %}
+    <table class="table table-hover table-sm">
+        <tr>
+            <th>№</th>
+            <th>Username</th>
+            <th>Access level</th>
+            <th>🖉</th>
+            <th>🚮</th>
+        </tr>
+        {% for group in groups %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ group.username }}</td>
+            <td>{{ group.access_level }}</td>
+            <td><a href="{% url 'groups:update' group.id %}">EDIT</a></td>
+            <td><a href="{% url 'groups:delete' group.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
