@@ -1,5 +1,6 @@
 import re
 
+import django_filters
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
@@ -73,3 +74,13 @@ class TeacherUpdateForm(TeacherBaseForm):
             'enroll_date',
             'graduate_date',
         ]
+
+
+class TeachersFilter(django_filters.FilterSet):
+    class Meta:
+        model = Teacher
+        fields = {
+            'work_experience': ['lt', 'gt'],
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith'],
+        }

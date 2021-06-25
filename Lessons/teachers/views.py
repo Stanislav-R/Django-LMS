@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from teachers.forms import TeacherCreateForm, TeacherUpdateForm
+from teachers.forms import TeacherCreateForm, TeacherUpdateForm, TeachersFilter
 from teachers.models import Teacher
 
 from webargs import fields
@@ -32,13 +32,17 @@ def get_teachers(request, args):
     teachers = Teacher.objects.all()
 
     for param_name, param_value in args.items():
-        teachers = teachers.filter(**{param_name: param_value})
+        if param_value:
+            teachers = teachers.filter(**{param_name: param_value})
+
+    obj_filter = TeachersFilter(data=request.GET, queryset=teachers)
 
     return render(
         request=request,
         template_name='teachers/list.html',
         context={
-            'teachers': teachers
+            'teachers': teachers,
+            'obj_filter': obj_filter,
         }
     )
 

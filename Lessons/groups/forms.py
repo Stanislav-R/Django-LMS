@@ -1,3 +1,4 @@
+import django_filters
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
@@ -32,3 +33,14 @@ class GroupCreateForm(GroupBaseForm):
 class GroupUpdateForm(GroupBaseForm):
     class Meta(GroupBaseForm.Meta):
         fields = ['username', 'access_level', 'enroll_date', 'graduate_date']
+
+
+class GroupsFilter(django_filters.FilterSet):
+    class Meta:
+        model = Group
+        fields = {
+            'username': ['exact', 'icontains'],
+            'access_level': ['exact', 'icontains'],
+
+        }
+
