@@ -5,6 +5,8 @@ from django.db import models
 
 # HW 7-3
 # Create your models here.
+from groups.models import Group
+
 from students.validators import validate_domain_email
 
 
@@ -19,9 +21,10 @@ class Teacher(models.Model):
     work_experience = models.IntegerField(default=10)
     enroll_date = models.DateField(default=datetime.date.today)
     graduate_date = models.DateField(default=datetime.date.today)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, related_name='teachers')
 
     def __str__(self):
-        return f'{self.full_name()}, {self.position}, {self.work_experience}'
+        return f'{self.full_name()}, {self.position}, {self.work_experience}, {self.id}, {self.group}'
 
     def full_name(self):
         return f'{self.first_name}, {self.last_name}'

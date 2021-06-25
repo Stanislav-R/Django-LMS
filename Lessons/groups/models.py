@@ -14,8 +14,10 @@ class Group(models.Model):
     # Choose access level
     CHOICES = (
         ('Tr', 'Traverse Folder'),
+        ('R', 'Read'),
         ('RW', 'Read and Write'),
         ('FA', 'Full Access'),
+        ('A', 'Administrative Rights'),
     )
     access_level = models.CharField(max_length=60, choices=CHOICES)
     enroll_date = models.DateField(default=datetime.date.today)

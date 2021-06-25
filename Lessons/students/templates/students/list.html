@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 <title>Students list</title>
 {% endblock %}
@@ -10,19 +12,21 @@
 
 {% block content %}
     <form method="get">
-        <label >First name:</label>
-        <input type="text" name="first_name"><br><br>
+{#        <label >First name:</label>#}
+{#        <input type="text" name="first_name"><br><br>#}
+{##}
+{#        <label >Last name:</label>#}
+{#        <input type="text" name="last_name"><br><br>#}
+{##}
+{#        <label>Age:</label>#}
+{#        <input type="number" name="age"><br><br>#}
 
-        <label >Last name:</label>
-        <input type="text" name="last_name"><br><br>
+        {{ obj_filter.form | crispy }}
 
-        <label>Age:</label>
-        <input type="number" name="age"><br><br>
-
-        <input type="submit" value="Search">
+        <input class="btn btn-success mb-3 mt-3" type="submit" value="Search">
     </form>
 
-    <p><strong>Count of students: {{ students.count }}</strong></p>
+    <p><strong>Count of students: {{ obj_filter.qs.count }}</strong></p>
 
     <table class="table table-hover table-sm">
         <tr>
@@ -34,7 +38,7 @@
             <th>🖉</th>
             <th>🚮</th>
         </tr>
-        {% for student in students %}
+        {% for student in obj_filter.qs %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ student.first_name }}</td>

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 <title>Groups list</title>
 {% endblock %}
@@ -10,16 +12,20 @@
 
 {% block content %}
     <form method="get">
-        <label >Username:</label>
-        <input type="text" name="username"><br><br>
+{#        <label >Username:</label>#}
+{#        <input type="text" name="username"><br><br>#}
+{##}
+{#        <label >Access level:</label>#}
+{#        <input type="text" name="access_level"><br><br>#}
+{##}
+{#        <input type="submit" value="Search">#}
 
-        <label >Access level:</label>
-        <input type="text" name="access_level"><br><br>
+        {{ obj_filter.form | crispy }}
 
-        <input type="submit" value="Search">
+        <input class="btn btn-success mb-3 mt-3" type="submit" value="Search">
     </form>
 
-    <p><strong>Count of groups: {{ groups.count }}</strong></p>
+    <p><strong>Count of groups: {{ obj_filter.qs.count }}</strong></p>
 
     <table class="table table-hover table-sm">
         <tr>
@@ -29,7 +35,7 @@
             <th>🖉</th>
             <th>🚮</th>
         </tr>
-        {% for group in groups %}
+        {% for group in obj_filter.qs %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ group.username }}</td>
