@@ -3,43 +3,36 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-<title>Groups list</title>
+    Groups list
 {% endblock %}
 
-{% block action %}
-    <h3>List of groups</h3>
-{% endblock action %}
+{% block header %}
+    List of groups
+{% endblock %}
 
 {% block content %}
-    <form method="get">
-{#        <label >Username:</label>#}
-{#        <input type="text" name="username"><br><br>#}
-{##}
-{#        <label >Access level:</label>#}
-{#        <input type="text" name="access_level"><br><br>#}
-{##}
-{#        <input type="submit" value="Search">#}
 
-        {{ obj_filter.form | crispy }}
-
-        <input class="btn btn-success mb-3 mt-3" type="submit" value="Search">
-    </form>
-
-    <p><strong>Count of groups: {{ obj_filter.qs.count }}</strong></p>
+    <p><strong>Count of groups: {{ groups.count }}</strong></p>
 
     <table class="table table-hover table-sm">
         <tr>
-            <th>№</th>
-            <th>Username</th>
-            <th>Access level</th>
+            <th></th>
+            <th>Group name</th>
+            <th>Start data</th>
+            <th>End data</th>
+{#            <th>Head man</th>#}
+{#            <th>Count students</th>#}
             <th>🖉</th>
             <th>🚮</th>
         </tr>
-        {% for group in obj_filter.qs %}
+        {% for group in groups %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ group.username }}</td>
-            <td>{{ group.access_level }}</td>
+            <td>{{ group.name }}</td>
+            <td>{{ group.start_date }}</td>
+            <td>{{ group.end_date }}</td>
+{#            <td>{% if group.headman %}{{ group.headman.last_name }} {{ group.headman.first_name }}{% endif %}</td>#}
+{#            <td>{{ group.students.count }}</td>#}
             <td><a href="{% url 'groups:update' group.id %}">EDIT</a></td>
             <td><a href="{% url 'groups:delete' group.id %}">DELETE</a></td>
         </tr>

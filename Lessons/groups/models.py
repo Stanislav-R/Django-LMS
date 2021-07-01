@@ -1,39 +1,28 @@
-import datetime
-import random
+# import datetime
 
 from django.db import models
 
-from faker import Faker
+from django.utils import timezone
 
+# from teachers.models import Teacher
 
-# HW 7-2
-# Create your models here.
+# from students.models import Student
+
 
 class Group(models.Model):
-    username = models.CharField(max_length=30, null=False)
-    # Choose access level
-    CHOICES = (
-        ('Tr', 'Traverse Folder'),
-        ('R', 'Read'),
-        ('RW', 'Read and Write'),
-        ('FA', 'Full Access'),
-        ('A', 'Administrative Rights'),
+    name = models.CharField(max_length=50)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(null=True, blank=True)
+    headman = models.OneToOneField(
+        # Student,
+        'students.Student',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='headed_group'
     )
-    access_level = models.CharField(max_length=60, choices=CHOICES)
-    enroll_date = models.DateField(default=datetime.date.today)
-    graduate_date = models.DateField(default=datetime.date.today)
+
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.username}, {self.access_level}'
-
-    @staticmethod  # HW 8-1
-    def generate_groups(count):
-        faker = Faker()
-        for _ in range(count):
-            gp = Group(
-                username=faker.first_name().lower(),
-                access_level=random.choice(Group.CHOICES)[1]
-
-            )
-
-            gp.save()
+        return self.name

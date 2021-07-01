@@ -69,22 +69,30 @@ class StudentBaseForm(ModelForm):
 
 
 class StudentCreateForm(StudentBaseForm):
-    pass
-
-
-class StudentUpdateForm(StudentBaseForm):
     class Meta(StudentBaseForm.Meta):
         fields = [
             'first_name',
             'last_name',
-            'phone_number',
-            'email',
-            # 'age',
             'birthdate',
             'enroll_date',
             'graduate_date',
-            'graduate_date2',
         ]
+
+
+class StudentUpdateForm(StudentBaseForm):
+    class Meta(StudentBaseForm.Meta):
+        # fields = [
+        #     'first_name',
+        #     'last_name',
+        #     'phone_number',
+        #     'email',
+        #     # 'age',
+        #     'birthdate',
+        #     'enroll_date',
+        #     'graduate_date',
+        #     'graduate_date2',
+        # ]
+        fields = '__all__'
 
 
 class StudentsFilter(django_filters.FilterSet):

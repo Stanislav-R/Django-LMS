@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
     'debug_toolbar',
     'crispy_forms',
     'django_filters',
 
-    'django_extensions',
 
+    'core',
     'students',
     'groups',
     'teachers'
