@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Courses list
+{% endblock %}
+
+{% block header %}
+    List of courses
+{% endblock %}
+
+{% block content %}
+
+    <p><strong>Count of courses: {{ courses.count }}</strong></p>
+
+    <table class="table table-hover table-sm">
+        <tr>
+            <th>№</th>
+            <th>Course name</th>
+            <th>Start data</th>
+            <th>End data</th>
+            <th>🖉</th>
+            <th>🚮</th>
+        </tr>
+        {% for course in courses %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ course.name }}</td>
+            <td>{{ course.start_date }}</td>
+            <td>{{ course.end_date }}</td>
+            <td><a href="{% url 'courses:update' course.id %}">EDIT</a></td>
+            <td><a href="{% url 'courses:delete' course.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

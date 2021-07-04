@@ -1,7 +1,11 @@
+import datetime
+
+from core.validators import validate_domain_email
+
+from dateutil.relativedelta import relativedelta
+
 from django.db import models
 
-import datetime
-from dateutil.relativedelta import relativedelta
 from faker import Faker
 
 
@@ -9,10 +13,13 @@ class Person(models.Model):
     class Meta:
         abstract = True
 
-    last_name = models.CharField(max_length=80)
     first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=80)
     age = models.IntegerField(default=42)
-    email = models.EmailField(max_length=120, null=True)
+    email = models.EmailField(
+        max_length=50, null=True, validators=[validate_domain_email]
+    )
+    phone_number = models.CharField(max_length=15, null=True)
     birthdate = models.DateField(default=datetime.date.today)
 
     def __str__(self):

@@ -6,48 +6,19 @@
 <title>Teachers list</title>
 {% endblock %}
 
+{% block header %}
+    List of teachers
+{% endblock%}
+
 {% block content %}
     <form method="get">
-{#        <label >First name:</label>#}
-{#        <input type="text" name="first_name"><br><br>#}
-{##}
-{#        <label >Last name:</label>#}
-{#        <input type="text" name="last_name"><br><br>#}
-{##}
-{#        <label>Position:</label>#}
-{#        <input type="number" name="position"><br><br>#}
-{##}
-{#        <label>Work experience:</label>#}
-{#        <input type="number" name="work_experience"><br><br>#}
 
         {{ obj_filter.form | crispy }}
 
         <input class="btn btn-success mb-3 mt-3" type="submit" value="Search">
     </form>
-
     <p><strong>Count of teachers: {{ obj_filter.qs.count }}</strong></p>
-
-    <table class="table table-hover table-sm">
-        <tr>
-            <th>№</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Position</th>
-            <th>Work experience</th>
-            <th>🖉</th>
-            <th>🚮</th>
-        </tr>
-        {% for teacher in obj_filter.qs %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ teacher.first_name }}</td>
-            <td>{{ teacher.last_name }}</td>
-            <td>{{ teacher.position }}</td>
-            <td>{{ teacher.work_experience }}</td>
-            <td><a href="{% url 'teachers:update' teacher.id %}">EDIT</a></td>
-            <td><a href="{% url 'teachers:delete' teacher.id %}">DELETE</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-
+    {% with list_objects=obj_filter.qs  %}
+        {% include 'includes/teachers_list_table.html' %}
+    {% endwith %}
 {% endblock %}

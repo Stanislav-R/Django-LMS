@@ -20,11 +20,9 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
 
-from students.views import hello
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', hello),
 
     path('', index, name='index'),
 
@@ -41,5 +39,6 @@ urlpatterns = [
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('teachers/', include('teachers.urls')),
+    path('courses/', include('courses.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]

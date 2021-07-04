@@ -1,46 +1,27 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentsFilter
 from students.models import Student
 
-from webargs import fields
-from webargs.djangoparser import use_args
+# from webargs import fields
+# from webargs.djangoparser import use_args
 
 
-def hello(request):
-    return HttpResponse('Hello')
-
-
-#
-#
-# @use_kwargs({
-#     "count": fields.Int(
-#         required=False,
-#         missing=100,
-#         validate=[validate.Range(min=1, max=999)]
-#     )},
-#     location="query"
+# @use_args(
+#     {
+#         "first_name": fields.Str(
+#             required=False
+#         ),
+#         "last_name": fields.Str(
+#             required=False
+#         ),
+#         "birthdate": fields.Date(required=False),
+#     },
+#     location="query",
 # )
-# def generate_students(request, count):
-#     return HttpResponse('Hello')
-
-
-@use_args(
-    {
-        "first_name": fields.Str(
-            required=False
-        ),
-        "last_name": fields.Str(
-            required=False
-        ),
-        "birthdate": fields.Date(required=False),
-    },
-    location="query",
-)
-def get_students(request, args):
-    # Students = 42
+def get_students(request):
     students = Student.objects.all().select_related('group', 'headed_group')
 
     # for param_name, param_value in args.items():

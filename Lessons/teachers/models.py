@@ -1,30 +1,16 @@
-import datetime
+from random import randint
+
+from core.models import Person
 
 from django.db import models
 
 
-# HW 7-3
-# Create your models here.
-from groups.models import Group
-
-from students.validators import validate_domain_email
-
-
-class Teacher(models.Model):
-    first_name = models.CharField(max_length=30, null=False)
-    last_name = models.CharField(max_length=50, null=False)
-    phone_number = models.CharField(max_length=15, null=True)
-    email = models.EmailField(
-        max_length=50, null=True, validators=[validate_domain_email]
-    )
-    position = models.CharField(max_length=70, null=False)
+class Teacher(Person):
     work_experience = models.IntegerField(default=10)
-    enroll_date = models.DateField(default=datetime.date.today)
-    graduate_date = models.DateField(default=datetime.date.today)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, related_name='teachers')
+    salary = models.PositiveIntegerField(default=1500)
 
-    def __str__(self):
-        return f'{self.full_name()}, {self.position}, {self.work_experience}, {self.id}, {self.group}'
-
-    def full_name(self):
-        return f'{self.first_name}, {self.last_name}'
+    @classmethod
+    def _generate(cls):
+        obj = super()._generate()
+        obj.salary = randint(1000, 3000)
+        obj.save()

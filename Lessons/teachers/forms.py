@@ -1,7 +1,7 @@
 import re
 
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import DateInput, ModelForm
 
 import django_filters
 
@@ -16,11 +16,12 @@ class TeacherBaseForm(ModelForm):
             'last_name',
             'phone_number',
             'email',
-            'position',
+            'age',
+            'birthdate',
             'work_experience',
-            'enroll_date',
-            'graduate_date',
+            'salary',
         ]
+        widgets = {'birthdate': DateInput(attrs={'type': 'date'})}
 
     @staticmethod
     def normalize_name(value):
@@ -41,12 +42,6 @@ class TeacherBaseForm(ModelForm):
         result = self.normalize_name(last_name)
         return result
 
-    def clean(self):
-        enroll_date = self.cleaned_data['enroll_date']
-        graduate_date = self.cleaned_data['graduate_date']
-        if enroll_date > graduate_date:
-            raise ValidationError('Enroll date coudnt be greater than graduate date!')
-
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
         result = self.normalize_phone_number(phone_number)
@@ -60,28 +55,26 @@ class TeacherBaseForm(ModelForm):
 
 
 class TeacherCreateForm(TeacherBaseForm):
-    pass
-
-
-class TeacherUpdateForm(TeacherBaseForm):
     class Meta(TeacherBaseForm.Meta):
         fields = [
             'first_name',
             'last_name',
-            'phone_number',
-            'email',
-            'position',
+            'birthdate',
             'work_experience',
-            'enroll_date',
-            'graduate_date',
+            'salary',
         ]
+
+
+class TeacherUpdateForm(TeacherBaseForm):
+    class Meta(TeacherBaseForm.Meta):
+        fields = '__all__'
 
 
 class TeachersFilter(django_filters.FilterSet):
     class Meta:
         model = Teacher
         fields = {
-            'work_experience': ['lt', 'gt'],
             'first_name': ['exact', 'icontains'],
             'last_name': ['exact', 'startswith'],
+            'salary': ['lt', 'gt'],
         }

@@ -1,11 +1,12 @@
+from courses.models import Course
+
+
 from django.forms import DateInput, ModelForm
 
-from groups.models import Group
 
-
-class GroupCreateForm(ModelForm):
+class CourseCreateForm(ModelForm):
     class Meta:
-        model = Group
+        model = Course
         fields = '__all__'
         exclude = ['start_date']
 

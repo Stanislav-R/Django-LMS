@@ -81,17 +81,6 @@ class StudentCreateForm(StudentBaseForm):
 
 class StudentUpdateForm(StudentBaseForm):
     class Meta(StudentBaseForm.Meta):
-        # fields = [
-        #     'first_name',
-        #     'last_name',
-        #     'phone_number',
-        #     'email',
-        #     # 'age',
-        #     'birthdate',
-        #     'enroll_date',
-        #     'graduate_date',
-        #     'graduate_date2',
-        # ]
         fields = '__all__'
 
 
@@ -99,7 +88,7 @@ class StudentsFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields = {
-            'age': ['lt', 'gt'],
             'first_name': ['exact', 'icontains'],
             'last_name': ['exact', 'startswith'],
+            'age': ['lt', 'gt'],
         }
