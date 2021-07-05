@@ -1,9 +1,10 @@
+from core.views import EditView
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView
 
-from core.views import EditView
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentsFilter
 from students.models import Student
 
@@ -67,8 +68,8 @@ def create_student(request):
 
 
 # @csrf_exempt
-def update_student(request, id):  # noqa
-    student = Student.objects.get(id=id)
+def update_student(request, pk):
+    student = Student.objects.get(id=pk)
 
     if request.method == 'GET':
 
