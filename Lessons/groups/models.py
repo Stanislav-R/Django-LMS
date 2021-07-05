@@ -2,7 +2,7 @@ import datetime
 
 from django.db import models
 
-# from teachers.models import Teacher
+from teachers.models import Teacher
 
 # from students.models import Student
 
@@ -17,6 +17,11 @@ class Group(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         related_name='headed_group'
+    )
+
+    teachers = models.ManyToManyField(
+        to=Teacher,
+        related_name='groups'
     )
 
     create_datetime = models.DateTimeField(auto_now_add=True)

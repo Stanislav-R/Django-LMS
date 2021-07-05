@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView
 
 from groups.forms import GroupCreateForm
 from groups.models import Group
@@ -40,7 +41,7 @@ def create_group(request):
     )
 
 
-def update_group(request, id): # noqa
+def update_group(request, id):  # noqa
     group = get_object_or_404(Group, id=id)
 
     if request.method == 'POST':
@@ -55,11 +56,11 @@ def update_group(request, id): # noqa
         form = GroupCreateForm(instance=group)
 
     return render(request, 'groups/update.html', context={
-            'form': form,
-            'group': group,
-            'students': group.students.select_related('headed_group').all()
-        }
-    )
+        'form': form,
+        # 'group': group,
+        'students': group.students.select_related('group', 'headed_group').all()
+    }
+                  )
 
 
 def delete_group(request, pk):
@@ -76,3 +77,16 @@ def delete_group(request, pk):
             'group': group
         }
     )
+
+
+class GroupUpdateView(UpdateView):
+    model = Group
+    form_class = GroupCreateForm
+    success_url = reverse_lazy('groups:list')
+    template_name = 'groups/update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['students'] = self.get_object().students.select_related('group', 'headed_group').all()
+
+        return context

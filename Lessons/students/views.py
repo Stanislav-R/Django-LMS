@@ -1,9 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView
 
+from core.views import EditView
 from students.forms import StudentCreateForm, StudentUpdateForm, StudentsFilter
 from students.models import Student
+
 
 # from webargs import fields
 # from webargs.djangoparser import use_args
@@ -102,3 +105,17 @@ def delete_student(request, pk):
             'student': student
         }
     )
+
+
+class UpdateStudentView(EditView):
+    model = Student
+    form_class = StudentUpdateForm
+    success_url = 'students:list'
+    template_name = 'students/update.html'
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    form_class = StudentUpdateForm
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/update.html'
