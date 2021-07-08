@@ -25,17 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', index, name='index'),
-
-    # path('students/', get_students),
-    # path('students/create/', create_student),
-    # path('students/update/<int:id>', update_student),
-    # path('groups/', get_groups),
-    # path('groups/create/', create_group),
-    # path('groups/update/<int:id>', update_group),
-    # path('teachers/', get_teachers),
-    # path('teachers/create/', create_teacher),
-    # path('teachers/update/<int:id>', update_teacher),
-
+    path('accounts/', include('accounts.urls')),
     path('students/', include('students.urls')),
     path('groups/', include('groups.urls')),
     path('teachers/', include('teachers.urls')),
