@@ -138,5 +138,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+EMAIL_PORT = 1025
+
 DATE_FORMAT = 'Y-m-d'
 USE_L10N = False

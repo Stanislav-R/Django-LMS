@@ -21,7 +21,7 @@ class StudentBaseForm(ModelForm):
             'enroll_date',
             'graduate_date',
         ]
-        # fields = '__all__'
+
         widgets = {'birthdate': DateInput(attrs={'type': 'date'})}
 
     @staticmethod
@@ -41,14 +41,6 @@ class StudentBaseForm(ModelForm):
         last_name = self.cleaned_data['last_name']
         result = self.normalize_name(last_name)
         return result
-
-    # def clean_birthdate(self):
-    #     birthdate = self.cleaned_data['birthdate']
-    #     age = datetime.datetime.now().year - birthdate.year
-    #     if age < 18:
-    #         raise ValidationError('Age should be greater than 18 y.o.')
-    #
-    #     return birthdate
 
     def clean(self):
         enroll_date = self.cleaned_data['enroll_date']
