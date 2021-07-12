@@ -27,6 +27,7 @@
     <div class="border rounder text-center p-3 m-3 mb-5 bg-light shadow">
         <h1>{% block header %}Welcome to LMS!!!{% endblock %}</h1>
     </div>
+    {% include 'includes/messages.html' %}
         {% block content %}
 
         {% endblock %}
