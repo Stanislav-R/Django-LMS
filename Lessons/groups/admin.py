@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Group
 from students.models import Student
+
+from .models import Group
 
 
 class StudentsInlineTable(admin.TabularInline):
@@ -25,7 +26,6 @@ class GroupAdmin(admin.ModelAdmin):
         'start_date',
         'end_date',
         'headman',
-        # 'days_of_week',
     ]
 
     fields = [
