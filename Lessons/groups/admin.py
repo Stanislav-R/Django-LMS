@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from students.models import Student
+from groups.models import Group
 
-from .models import Group
+from students.models import Student
 
 
 class StudentsInlineTable(admin.TabularInline):
@@ -34,6 +34,8 @@ class GroupAdmin(admin.ModelAdmin):
         'headman',
         'teachers',
     ]
+
+    search_fields = ['name', 'start_date']
 
     inlines = [StudentsInlineTable]
 
