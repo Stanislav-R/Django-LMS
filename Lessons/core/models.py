@@ -19,7 +19,7 @@ class Person(models.Model):
     email = models.EmailField(
         max_length=50, null=True, validators=[validate_domain_email]
     )
-    phone_number = models.CharField(max_length=15, null=True)
+    phone_number = models.CharField(max_length=15, blank=True)
     birthdate = models.DateField(default=datetime.date.today)
 
     def __str__(self):

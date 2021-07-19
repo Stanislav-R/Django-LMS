@@ -49,7 +49,7 @@ class TeacherBaseForm(ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if email and Teacher.objects.filter(email=email).exists():
+        if email and Teacher.objects.filter(email=email).exclude(id=self.instance.id).exists():
             raise ValidationError('Sorry, the email already in use')
         return email
 
