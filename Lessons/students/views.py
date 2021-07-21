@@ -117,7 +117,7 @@ class UpdateStudentView(EditView):
 class StudentsListView(LoginRequiredMixin, ListView):
     model = Student
     template_name = 'students/list.html'
-    paginate_by = 15
+    paginate_by = 10
 
     # Оптимизация SQL запроса
     def get_filter(self):
