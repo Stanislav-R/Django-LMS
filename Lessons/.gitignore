@@ -135,3 +135,4 @@ buffer.txt
 !**/migrations/__init__.py
 
 media/
+static/
